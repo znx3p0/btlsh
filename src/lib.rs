@@ -2,6 +2,7 @@
 
 #[macro_export]
 macro_rules! btl {
+    () => {};
 
     (cd $cmd: expr $(;)*) => {
         cd!($cmd);
@@ -54,6 +55,7 @@ macro_rules! btl {
 
 #[macro_export]
 macro_rules! shell {
+    () => {};
 
     ($first: expr; $($args: expr $(;)* )*) => {
         {
@@ -88,6 +90,7 @@ macro_rules! shell {
 
 #[macro_export]
 macro_rules! cd {
+    () => {};
     ($dir: expr) => {
         std::env::set_current_dir(stringify!($dir).to_string()).unwrap();
     }
