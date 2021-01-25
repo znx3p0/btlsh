@@ -1,13 +1,7 @@
 
 
-
-
-
-
-
-
 #[macro_export]
-macro_rules! rsh {
+macro_rules! btl {
 
     (cd $cmd: expr $(;)*) => {
         cd!($cmd);
@@ -20,7 +14,7 @@ macro_rules! rsh {
 
         if cfg!(target_os = "windows") {
             std::process::Command::new("cmd")
-                    .args(&["/C", command])
+                    .args(&["/C", command.as_str()])
                     .spawn()
                     .unwrap()
                     .wait()

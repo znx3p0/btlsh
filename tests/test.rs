@@ -11,22 +11,41 @@ mod tests {
     #[test]
     fn shell() {
 
-        rsh! {
-            "exa -la";
+        let command = "mkdir";
+        let arg = "xyz";
+        btl! {
+            "{} {}", command, arg;
         };
 
-        rsh! {
-            cd ..
-
+        
+        btl! {
+            "sleep 10";
+        }
+            
+        btl! {
+            "rmdir {}", arg;
         };
 
         shell! {
-            "echo 3";
-            "echo 3";
-            "echo 4";
+            "mkdir xyz";
+            "sleep 10";
+            "rmdir xyz";
+        }
+
+        btl! {
+            "echo {}", 2;
         };
 
-        cd![..];
+        btl! {
+            cd ..
+        };
+
+        shell! {
+            "ls -la";
+            "pwd";
+        };
+
+        cd!{..};
 
     }
 
