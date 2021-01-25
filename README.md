@@ -22,7 +22,7 @@ btl! {
 // Both of these examples are runnable on unix machines.
 // Windows has not been tested yet, but it uses the cmd instead of sh.
 btl! {
-    "mkdir {} && sleep 10 && rmdir {}", "xyz", 10, "xyz";
+    "mkdir {} && sleep {} && rmdir {}", "xyz", 10, "xyz";
 };
 
 // This will cd the program backwards. Quotes are not needed.
