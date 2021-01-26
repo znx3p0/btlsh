@@ -2,8 +2,7 @@
 
 mod tests {
 
-    use btl::shell;
-    use btl::detach;
+    use btl::*;
     
     #[test]
     fn test(){
@@ -32,11 +31,35 @@ mod tests {
         // The difference is that this shell process is completely separated
         // from the rust process and can outlive the rust process.
         
-        // This is exceptionally useful for creating autoupdating programs.
+        // This is exceptionally useful for creating programs which outlive the main process.
         detach! {
             "touch example.txt";
             "sleep {}" bar;
             "rm example.txt";
         };
+
+        // The third macro is execute!{}
+        // It's got the same syntax as all macros, but it returns the stdout as a String
+        let dir = execute! {
+            "ls -la";
+        };
+        println!("Current directory: {}", dir);
+
+        // The fourth macro is exec!{}
+        // It's the same as all macros, but it returns a bool indicating if the command succeded.
+        if exec! {
+            "ls -la | grep Cargo";
+        } {
+            println!("Cargo found");
+        } else {
+            println!("Cargo not found");
+        }
+
+        // The fifth macro is detailed_exec!{}
+        // It's the same as all macros, but it returns a std::process::Output
+        let out: std::process::Output = detailed_exec! {
+            "pwd";
+        };
+        println!("{:#?}", out);
     }
 }
