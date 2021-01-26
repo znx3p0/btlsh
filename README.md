@@ -4,72 +4,57 @@ Btl is a simple library that makes shell scripting with rust easier.
 It was originally written with the purposes of being used for build.rs files,
 but it can be used for more complex purposes.
 
-It's main premise is about making shell scripting easier to work with rust.
+It's main premise is making shell scripting easier to work with rust.
 This works both on windows and unix machines. Originally designed in linux,
-not tested on Windows or Mac yet, but they should work since the library is platform-agnostic.
+not tested on Windows or Mac yet, but it should work since the library is platform-agnostic.
 
-Btl is extremely simple. It's composed by three macros.
+Btl is extremely simple, composed of two macros.
+This macro allows for embedding shell scripts to rust naturally while allowing extreme
+customization of the shell script to be in an ergonomic manner.
 
-## btl!{}
+Macros:
 
-This macro allows you to create custom commands a lá format!():
+- shell!{}
+- detach!{}
 
-```rust
-btl! {
-    "echo {}", "Hello world!";
-};
-
-// Both of these examples are runnable on unix machines.
-// Windows has not been tested yet, but it uses the cmd instead of sh.
-btl! {
-    "mkdir {} && sleep {} && rmdir {}", "xyz", 10, "xyz";
-};
-
-// This will cd the program backwards. Quotes are not needed.
-btl! {
-    cd ..;
-};
-
-// Changing directories within a btl will not change the program's directory.
-btl! {
-    "ls -la && cd .. && ls -la && pwd";
-}
-
-// As demonstrated by this.
-btl! {
-    "pwd";
-}
-// To change the directory you have to use the cd macro or use btl!{cd ..};
-```
-
-## shell!{}
-
-This macro allows you to write complete shell scripts.
+Example:
 
 ```rust
+use btl::shell;
+use btl::detach;
 
+let foo = 2;
+let bar = 5;
+
+// Syntax:
+// You have to call the macro followed by a command.
+// This command can be used as a format! format string
+
+// Variables you use in the format string need to be after
+// the command and need to be separated by spaces. No commas.
+// Commands are separated by semicolons and they're obligatory.
 shell! {
-    "mkdir xyz";
-    "sleep 10";
-    "rmdir xyz";
-    "echo done!";
-}
-// It should be noted that you cannot use variables within this macro
-```
-
-## cd! {}
-
-This macro is pretty straight forward. Changes the program's directory.
-
-```rust
-// Change the program's directory backwards
-btl! {
     "pwd";
+    "cd ..";
+    "pwd";
+    "echo {} > example.txt" foo;
 };
 
-cd! [..];
 
-btl! {
-    "pwd";
+// The second macro is detach!{}
+// This is equivalent to shell in syntax and in execution.
+// The difference is that this shell process is completely separated
+// from the rust process and can outlive the rust process.
+
+// This is exceptionally useful for creating autoupdating programs.
+// Try running this example locally. You'll probably find it interesting.
+detach! {
+    "touch example.txt";
+    "sleep {}" bar;
+    "rm example.txt";
 };
+
+// It should be noted that changing directories through either of these macros
+// will not change the rust's programs directory. It only changes the shell's directory.
+
 ```

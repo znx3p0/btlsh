@@ -1,52 +1,42 @@
-
-
-
-
-
-
 #[cfg(test)]
+
 mod tests {
-    use btl::*;
 
+    use btl::shell;
+    use btl::detach;
+    
     #[test]
-    fn shell() {
+    fn test(){
 
-        let command = "mkdir";
-        let arg = "xyz";
-        btl! {
-            "{} {}", command, arg;
-        };
 
+        let foo = 2;
+        let bar = 5;
         
-        btl! {
-            "sleep 10";
-        }
-            
-        btl! {
-            "rmdir {}", arg;
-        };
-
+        // Syntax:
+        // You have to call the macro followed by a command.
+        // This command can be used as a format! format string
+        
+        // Variables you use in the format string need to be after
+        // the command and need to be separated by spaces. No commas.
+        // Commands are separated by semicolons and they're obligatory.
         shell! {
-            "mkdir xyz";
-            "sleep 10";
-            "rmdir xyz";
-        }
-
-        btl! {
-            "echo {}", 2;
-        };
-
-        btl! {
-            cd ..
-        };
-
-        shell! {
-            "ls -la";
             "pwd";
+            "cd ..";
+            "pwd";
+            "echo {} > example.txt" foo;
         };
-
-        cd!{..};
-
+        
+        
+        // The second macro is detach!{}
+        // This is equivalent to shell in syntax and in execution.
+        // The difference is that this shell process is completely separated
+        // from the rust process and can outlive the rust process.
+        
+        // This is exceptionally useful for creating autoupdating programs.
+        detach! {
+            "touch example.txt";
+            "sleep {}" bar;
+            "rm example.txt";
+        };
     }
-
 }
