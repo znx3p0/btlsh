@@ -16,6 +16,9 @@ Macros:
 
 - shell!{}
 - detach!{}
+- execute!{}
+- exec!{}
+- detailed_exec!{}
 
 Example:
 
@@ -85,3 +88,8 @@ let out: std::process::Output = detailed_exec! {
 println!("{:#?}", out);
 
 ```
+
+Contributions:
+
+Feel free to contribute, add features or modify the macros.
+This project is licensed under the MIT license.
