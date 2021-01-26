@@ -64,7 +64,6 @@ pub fn shell(input: TokenStream) -> TokenStream {
     } = parse_macro_input!(input as Commands);
 
     let key = std::time::SystemTime::elapsed(&std::time::UNIX_EPOCH).unwrap().as_nanos();
-    println!("{}", key);
     let args = args.join("");
     let fmt = fmt.join(format!(" {}", key).as_str());
     let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
@@ -108,7 +107,6 @@ pub fn detach(input: TokenStream) -> TokenStream {
     } = parse_macro_input!(input as Commands);
 
     let key = std::time::SystemTime::elapsed(&std::time::UNIX_EPOCH).unwrap().as_nanos();
-    println!("{}", key);
     let args = args.join("");
     let fmt = fmt.join(format!(" {}", key).as_str());
     let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
