@@ -3,18 +3,16 @@
 mod tests {
 
     use btl::*;
-    
+
     #[test]
-    fn test(){
-
-
+    fn test() {
         let foo = 2;
         let bar = 5;
-        
+
         // Syntax:
         // You have to call the macro followed by a command.
         // This command can be used as a format! format string
-        
+
         // Variables you use in the format string need to be after
         // the command and need to be separated by spaces. No commas.
         // Commands are separated by semicolons and they're obligatory.
@@ -24,13 +22,16 @@ mod tests {
             "pwd";
             "echo {} > example.txt" foo;
         };
-        
-        
+
+        // The pwd macro gives back the current working directory. Nothing fancy.
+        let curr = pwd!();
+        println!("Current dir through macro: {:?}", curr);
+
         // The second macro is detach!{}
         // This is equivalent to shell in syntax and in execution.
         // The difference is that this shell process is completely separated
         // from the rust process and can outlive the rust process.
-        
+
         // This is exceptionally useful for creating programs which outlive the main process.
         detach! {
             "touch example.txt";
@@ -40,10 +41,10 @@ mod tests {
 
         // The third macro is execute!{}
         // It's got the same syntax as all macros, but it returns the stdout as a String
-        let dir = execute! {
+        let contents = execute! {
             "ls -la";
         };
-        println!("Current directory: {}", dir);
+        println!("Current directory's contents: {}", contents);
 
         // The fourth macro is exec!{}
         // It's the same as all macros, but it returns a bool indicating if the command succeded.
@@ -55,7 +56,34 @@ mod tests {
             println!("Cargo not found");
         }
 
-        // The fifth macro is detailed_exec!{}
+        shell! {
+            "pwd";
+        };
+
+        // The cd macro changes the directory of the current rust process.
+        // This does not work for shell or any of the other macros.
+        // Only works as a helper macro to make it easier to use cd inside rust.
+        // You can still use all normal commands, including cd inside all macros.
+        // They just don't change the rust's process directory.
+        // That's this macro's purpose.
+        let dir = "..";
+        cd! {
+            "{}" dir
+        };
+
+        shell! {
+            "echo CURRENT DIR $(pwd)";
+        };
+
+        cd! {
+            "{}" curr
+        };
+        // println!("Now in the original directory");
+        shell! {
+            "echo CURRENT DIR $(pwd)";
+        };
+
+        // The next macro is detailed_exec!{}
         // It's the same as all macros, but it returns a std::process::Output
         let out: std::process::Output = detailed_exec! {
             "pwd";
