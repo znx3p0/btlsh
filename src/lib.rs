@@ -157,6 +157,8 @@ std::process::Command::new(\"sh\")
 /// from the rust process and can outlive the rust process.     
 /// This is exceptionally useful for creating programs which outlive the main process.
 ///
+/// This macro returns an std::process::Child
+///
 /// Try running this example.
 ///
 /// ```
