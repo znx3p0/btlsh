@@ -1,5 +1,7 @@
 # Btl
 
+![docs](https://docs.rs/btl/badge.svg?version=0.2.4)
+
 Btl is a simple library that makes shell scripting with rust easier.
 It was originally written with the purposes of being used for build.rs files,
 but it can be used for more complex purposes.
