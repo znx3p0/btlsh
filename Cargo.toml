@@ -4,6 +4,8 @@ version = "0.2.6"
 authors = ["Jose Salazar <znx3p0@gmail.com>"]
 edition = "2018"
 license = "MIT"
+documentation = "https://docs.rs/btl/"
+repository = "https://github.com/znx3p0/btlsh"
 description = """
 Github Repo: https://github.com/znx3p0/btlsh
 Btl is a simple library that makes shell scripting with rust easier.
