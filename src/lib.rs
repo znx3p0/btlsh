@@ -189,22 +189,26 @@ pub fn detach(input: TokenStream) -> TokenStream {
     if cfg!(target_os = "windows") {
         out = format!(
             "
+{{
 std::process::Command::new(\"cmd\")
 .arg(\"-c\")
 .arg(&[\"/C\", format!({}{}).as_str()])
 .spawn()
-.unwrap();
+.unwrap()
+}}
 ",
             fmt, args
         );
     } else {
         out = format!(
             "
+{{
 std::process::Command::new(\"sh\")
 .arg(\"-c\")
 .arg(format!({}{}))
 .spawn()
-.unwrap();
+.unwrap()
+}}
 ",
             fmt, args
         );
@@ -219,7 +223,7 @@ std::process::Command::new(\"sh\")
 /// This is useful for getting information from cli tools back to rust ergonomically.
 
 /// If you do not understand the syntax of this macro, please read the docs from shell!{}
-/// as it provides the same interface but have different purposes.
+/// as it provides the same interface but has different purposes.
 ///
 /// ```
 /// use btl::execute;
@@ -285,7 +289,7 @@ pub fn execute(input: TokenStream) -> TokenStream {
 /// It's the same as all macros, but it returns a bool indicating if the command succeded.
 
 /// If you do not understand the syntax of this macro, please read the docs from shell!{}
-/// as it provides the same interface but have different purposes.
+/// as it provides the same interface but has different purposes.
 ///
 /// ```
 /// use btl::exec;
@@ -348,7 +352,7 @@ pub fn exec(input: TokenStream) -> TokenStream {
 /// It's the same as all macros, but it returns a std::process::Output
 
 /// If you do not understand the syntax of this macro, please read the docs from shell!{}
-/// as it provides the same interface but have different purposes.
+/// as it provides the same interface but has different purposes.
 ///
 ///```
 /// use btl::detailed_exec;
