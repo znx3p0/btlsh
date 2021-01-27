@@ -1,6 +1,6 @@
 [package]
 name = "btl"
-version = "0.2.6"
+version = "0.2.7"
 authors = ["Jose Salazar <znx3p0@gmail.com>"]
 edition = "2018"
 license = "MIT"
