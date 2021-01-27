@@ -48,7 +48,7 @@ impl Parse for Commands {
 
 impl Parse for CD {
     fn parse(input: ParseStream) -> Result<Self> {
-        let mut fmt: Expr = input.parse().unwrap();
+        let fmt: Expr = input.parse().unwrap();
 
         let mut args: Vec<Expr> = vec![];
         // Parse all commands loop
@@ -80,6 +80,7 @@ impl Parse for CD {
 /// Commands are separated by semicolons and they're obligatory.
 ///
 /// ```
+/// use btl::shell;
 /// let foo = "test";
 ///
 /// shell! {
@@ -126,7 +127,7 @@ pub fn shell(input: TokenStream) -> TokenStream {
             "
 std::process::Command::new(\"cmd\")
 .arg(\"-c\")
-.arg(&[\"/C\", format!({}{}).as_str()])
+.args(&[\"/C\", format!({}{}).as_str()])
 .spawn()
 .unwrap()
 .wait()
@@ -194,7 +195,7 @@ pub fn detach(input: TokenStream) -> TokenStream {
 {{
 std::process::Command::new(\"cmd\")
 .arg(\"-c\")
-.arg(&[\"/C\", format!({}{}).as_str()])
+.args(&[\"/C\", format!({}{}).as_str()])
 .spawn()
 .unwrap()
 }}
@@ -259,7 +260,7 @@ pub fn execute(input: TokenStream) -> TokenStream {
     std::string::String::from_utf8_lossy(
         std::process::Command::new(\"cmd\")
         .arg(\"-c\")
-        .arg(&[\"/C\", format!({}{}).as_str()])
+        .args(&[\"/C\", format!({}{}).as_str()])
         .spawn()
         .unwrap().wait_with_output().unwrap().stdout.as_slice()
     ).to_string()
@@ -327,7 +328,7 @@ pub fn exec(input: TokenStream) -> TokenStream {
 {{
     std::process::Command::new(\"cmd\")
     .arg(\"-c\")
-    .arg(&[\"/C\", format!({}{}).as_str()])
+    .args(&[\"/C\", format!({}{}).as_str()])
     .output().unwrap().status.success()
 }}
 ",
@@ -388,7 +389,7 @@ pub fn detailed_exec(input: TokenStream) -> TokenStream {
 {{
     std::process::Command::new(\"cmd\")
     .arg(\"-c\")
-    .arg(&[\"/C\", format!({}{}).as_str()])
+    .args(&[\"/C\", format!({}{}).as_str()])
     .spawn()
     .unwrap().wait_with_output().unwrap()
 }}

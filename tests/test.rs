@@ -4,8 +4,45 @@ mod tests {
 
     use btl::*;
 
+    #[cfg(target_family = "windows")]
     #[test]
-    fn test() {
+    fn windows() {
+        shell! {
+            "ls";
+        };
+        
+        let curr = pwd!();
+        println!("Current directory {}", curr);
+        
+        let foo = 5;
+        detach! {
+            "touch example.txt";
+            "sleep {}" foo;
+            "rm example.txt";
+        };
+        cd! {
+            "./{}" "tests"
+        };
+
+        // Exec doesn't print to stdout since it directly uses the status. That can be changed.
+        if exec! {
+            "ls -la";
+        } {
+            println!("No errors executing command");
+        } else {
+            println!("Command not successful");
+        }
+
+        let out: std::process::Output = detailed_exec! {
+            "pwd";
+        };
+        println!("{:#?}", out);
+
+    }
+
+    // #[cfg(target_family = "unix")]
+    // #[test]
+    fn linux() {
         let foo = 2;
         let bar = 5;
 

@@ -11,8 +11,8 @@ This works both on windows and unix machines. Originally designed in linux,
 not tested on Windows or Mac yet, but it should work since the library is platform-agnostic.
 
 Btl is extremely simple, composed of six macros which have the exact same syntax.
-This macro allows for embedding shell scripts to rust naturally while allowing extreme
-customization of the shell script to be in an ergonomic manner.
+These macros allows for embedding shell scripts to rust while allowing extreme
+customization ergonomically.
 
 Macros:
 
