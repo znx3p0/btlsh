@@ -1,20 +1,21 @@
 [package]
 name = "btl"
-version = "0.2.7"
+version = "0.2.8"
 authors = ["Jose Salazar <znx3p0@gmail.com>"]
 edition = "2018"
 license = "MIT"
 documentation = "https://docs.rs/btl/"
 repository = "https://github.com/znx3p0/btlsh"
 description = """
-Github Repo: https://github.com/znx3p0/btlsh
 Btl is a simple library that makes shell scripting with rust easier.
 It was originally written with the purposes of being used for build.rs files,
 but it can be used for more complex purposes.
 
 It's main premise is about making shell scripting easier to work with rust.
 This works both on windows and unix machines. Originally designed in linux,
-not tested on Windows or Mac yet, but they should work since the library is platform-agnostic."""
+not tested on Windows or Mac yet, but they should work since the library is platform-agnostic.
+Github Repo: https://github.com/znx3p0/btlsh
+"""
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

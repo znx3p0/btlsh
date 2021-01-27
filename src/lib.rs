@@ -125,9 +125,8 @@ pub fn shell(input: TokenStream) -> TokenStream {
     if cfg!(target_os = "windows") {
         out = format!(
             "
-std::process::Command::new(\"cmd\")
-.arg(\"-c\")
-.args(&[\"/C\", format!({}{}).as_str()])
+std::process::Command::new(\"powershell\")
+.args(&[\"-C\", format!({}{}).as_str()])
 .spawn()
 .unwrap()
 .wait()
@@ -193,9 +192,8 @@ pub fn detach(input: TokenStream) -> TokenStream {
         out = format!(
             "
 {{
-std::process::Command::new(\"cmd\")
-.arg(\"-c\")
-.args(&[\"/C\", format!({}{}).as_str()])
+std::process::Command::new(\"powershell\")
+.args(&[\"-C\", format!({}{}).as_str()])
 .spawn()
 .unwrap()
 }}
@@ -258,9 +256,8 @@ pub fn execute(input: TokenStream) -> TokenStream {
             "
 {{
     std::string::String::from_utf8_lossy(
-        std::process::Command::new(\"cmd\")
-        .arg(\"-c\")
-        .args(&[\"/C\", format!({}{}).as_str()])
+        std::process::Command::new(\"powershell\")
+        .args(&[\"-C\", format!({}{}).as_str()])
         .spawn()
         .unwrap().wait_with_output().unwrap().stdout.as_slice()
     ).to_string()
@@ -326,9 +323,8 @@ pub fn exec(input: TokenStream) -> TokenStream {
         out = format!(
             "
 {{
-    std::process::Command::new(\"cmd\")
-    .arg(\"-c\")
-    .args(&[\"/C\", format!({}{}).as_str()])
+    std::process::Command::new(\"powershell\")
+    .args(&[\"-C\", format!({}{}).as_str()])
     .output().unwrap().status.success()
 }}
 ",
@@ -387,9 +383,8 @@ pub fn detailed_exec(input: TokenStream) -> TokenStream {
         out = format!(
             "
 {{
-    std::process::Command::new(\"cmd\")
-    .arg(\"-c\")
-    .args(&[\"/C\", format!({}{}).as_str()])
+    std::process::Command::new(\"powershell\")
+    .args(&[\"-C\", format!({}{}).as_str()])
     .spawn()
     .unwrap().wait_with_output().unwrap()
 }}

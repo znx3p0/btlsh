@@ -16,7 +16,7 @@ mod tests {
         
         let foo = 5;
         detach! {
-            "touch example.txt";
+            "echo a > example.txt";
             "sleep {}" foo;
             "rm example.txt";
         };

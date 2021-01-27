@@ -6,7 +6,7 @@ Btl is a simple library that makes shell scripting with rust easier.
 It was originally written with the purposes of being used for build.rs files,
 but it can be used for more complex purposes.
 
-It's main premise is making shell scripting easier to work with rust.
+It's main premise is about integrating shell scripting with rust ergonomically.
 This works both on windows and unix machines. Originally designed in linux,
 not tested on Windows or Mac yet, but it should work since the library is platform-agnostic.
 
@@ -22,6 +22,9 @@ Macros:
 - exec!{}
 - detailed_exec!{}
 - cd!{}
+
+NOTE:
+btl uses sh as the unix backend, and powershell as the windows backend.
 
 Example:
 
