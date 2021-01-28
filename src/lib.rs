@@ -118,8 +118,13 @@ pub fn shell(input: TokenStream) -> TokenStream {
         .unwrap()
         .as_nanos();
     let args = args.join("");
-    let fmt = fmt.join(format!(" {}", key).as_str());
-    let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    let mut fmt = fmt.join(format!(" {}", key).as_str());
+
+    if cfg!(target_os = "windows") {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), ";");
+    } else {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    }
 
     let out;
     if cfg!(target_os = "windows") {
@@ -184,8 +189,13 @@ pub fn detach(input: TokenStream) -> TokenStream {
         .unwrap()
         .as_nanos();
     let args = args.join("");
-    let fmt = fmt.join(format!(" {}", key).as_str());
-    let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    let mut fmt = fmt.join(format!(" {}", key).as_str());
+
+    if cfg!(target_os = "windows") {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), ";");
+    } else {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    }
 
     let out;
     if cfg!(target_os = "windows") {
@@ -247,8 +257,13 @@ pub fn execute(input: TokenStream) -> TokenStream {
         .unwrap()
         .as_nanos();
     let args = args.join("");
-    let fmt = fmt.join(format!(" {}", key).as_str());
-    let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    let mut fmt = fmt.join(format!(" {}", key).as_str());
+
+    if cfg!(target_os = "windows") {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), ";");
+    } else {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    }
 
     let out;
     if cfg!(target_os = "windows") {
@@ -315,8 +330,13 @@ pub fn exec(input: TokenStream) -> TokenStream {
         .unwrap()
         .as_nanos();
     let args = args.join("");
-    let fmt = fmt.join(format!(" {}", key).as_str());
-    let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    let mut fmt = fmt.join(format!(" {}", key).as_str());
+
+    if cfg!(target_os = "windows") {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), ";");
+    } else {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    }
 
     let out;
     if cfg!(target_os = "windows") {
@@ -375,8 +395,13 @@ pub fn detailed_exec(input: TokenStream) -> TokenStream {
         .unwrap()
         .as_nanos();
     let args = args.join("");
-    let fmt = fmt.join(format!(" {}", key).as_str());
-    let fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    let mut fmt = fmt.join(format!(" {}", key).as_str());
+
+    if cfg!(target_os = "windows") {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), ";");
+    } else {
+        fmt = fmt.replace(format!("\" {}\"", key).as_str(), " && ");
+    }
 
     let out;
     if cfg!(target_os = "windows") {
