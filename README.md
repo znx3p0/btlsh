@@ -7,8 +7,7 @@ It was originally written with the purposes of being used for build.rs files,
 but it can be used for more complex purposes.
 
 It's main premise is about integrating shell scripting with rust ergonomically.
-This works both on windows and unix machines. Originally designed in linux,
-not tested on Windows or Mac yet, but it should work since the library is platform-agnostic.
+This works both on windows and unix machines.
 
 Btl is extremely simple, composed of six macros which have the exact same syntax.
 These macros allows for embedding shell scripts to rust while allowing extreme
@@ -25,6 +24,8 @@ Macros:
 
 NOTE:
 btl uses sh as the unix backend, and powershell as the windows backend.
+
+If you happen to find any bug, please raise an issue at the github repo.
 
 Example:
 
