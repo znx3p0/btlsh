@@ -171,7 +171,7 @@ std::process::Command::new(\"sh\")
 ///
 /// detach! {
 ///     "touch example.txt";
-///     "sleep {}" 10;
+///     "sleep {}" 1;
 ///     "rm example.txt";
 /// };
 ///
@@ -273,8 +273,7 @@ pub fn execute(input: TokenStream) -> TokenStream {
     std::string::String::from_utf8_lossy(
         std::process::Command::new(\"powershell\")
         .args(&[\"-C\", format!({}{}).as_str()])
-        .spawn()
-        .unwrap().wait_with_output().unwrap().stdout.as_slice()
+        .output().unwrap().stdout
     ).to_string()
 }}
 ",
@@ -285,11 +284,10 @@ pub fn execute(input: TokenStream) -> TokenStream {
             "
 {{
     std::string::String::from_utf8_lossy(
-        std::process::Command::new(\"sh\")
+        &std::process::Command::new(\"sh\")
         .arg(\"-c\")
         .arg(format!({}{}))
-        .spawn()
-        .unwrap().wait_with_output().unwrap().stdout.as_slice()
+        .output().unwrap().stdout
     ).to_string()
 }}
 ",

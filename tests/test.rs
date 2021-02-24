@@ -40,8 +40,8 @@ mod tests {
 
     }
 
-    // #[cfg(target_family = "unix")]
-    // #[test]
+    #[cfg(target_family = "unix")]
+    #[test]
     fn linux() {
         let foo = 2;
         let bar = 5;
@@ -127,4 +127,6 @@ mod tests {
         };
         println!("{:#?}", out);
     }
+
+
 }
