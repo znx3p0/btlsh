@@ -17,7 +17,6 @@ macro_rules! detach {
     ($($t:tt)*) => {
         $crate::__std_internal_builder!()
             .arg($crate::__internal_command_builder!($($t)*)).spawn()?
-
     };
 }
 
@@ -27,10 +26,9 @@ macro_rules! execute {
     () => {};
     ($($t:tt)*) => {
         {
-            let p =
-            $crate::__std_internal_builder!()
-                .arg($crate::__internal_command_builder!($($t)*))
-                .output()?;
+            let p = $crate::__std_internal_builder!()
+                        .arg($crate::__internal_command_builder!($($t)*))
+                        .output()?;
 
             std::string::String::from_utf8_lossy(
                 p.stdout.as_slice()
