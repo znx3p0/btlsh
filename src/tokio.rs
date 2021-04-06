@@ -49,14 +49,11 @@ macro_rules! async_execute {
 macro_rules! async_exec {
     () => {{}};
     ($($t:tt)*) => {
-        
-        tokio::process::Command::new("sh")
-            .arg("-c")
+        $crate::__tokio_internal_builder!()
             .arg($crate::__internal_command_builder!($($t)*))
             .output()
             .await?
             .status
             .success()
-        
     };
 }
