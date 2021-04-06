@@ -21,6 +21,8 @@ Macros:
 - exec!{}
 - cd!{}
 
+support for tokio is under the "tokio_shell" feature, and they have the same syntax and names, but they have the "async_" prefix.
+
 NOTE:
 btl uses sh as the unix backend, and powershell as the windows backend.
 
